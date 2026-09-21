@@ -11,21 +11,27 @@ sudo apt install -y curl unzip
 # Install AWS CLI
 -----------------
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
 unzip awscliv2.zip
+
 sudo ./aws/install
 
 # Install kubectl
 -------------------
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 # Install eksctl
 -----------------
 curl --silent --location \
+
 "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" \
+
 | tar xz -C /tmp
 
 sudo mv /tmp/eksctl /usr/local/bin
+
 sudo chmod +x /usr/local/bin/eksctl
 
 aws --version
@@ -39,9 +45,9 @@ Configure AWS CLI
 aws configure
 
 
-
 Create Amazon EKS cluster using eksctl
 --------------------------------------
+
 eksctl create cluster --name cluster1 --region ap-southeast-1 --version 1.34 --nodegroup-name node1 --node-type t3.small --nodes 1
 
 
@@ -56,7 +62,9 @@ eksctl delete cluster --name cluster1 --region ap-southeast-1
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
-KIND_CLUSTER(kind kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
+KIND_CLUSTER
+------------
+(kind kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
 kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.)
 
 install docker first:
