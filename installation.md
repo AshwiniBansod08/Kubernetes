@@ -2,11 +2,12 @@
 # Kubernetes
 Launch instance and use below user data to setup eks cluster
 -------------------------------------------------------------
-
+````
 #!/bin/bash
 
 sudo apt update -y
 sudo apt install -y curl unzip
+````
 
 # Install AWS CLI
 -----------------
