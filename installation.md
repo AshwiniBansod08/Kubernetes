@@ -1,4 +1,4 @@
-'''
+
 # Kubernetes
 Launch instance and use below user data to setup eks cluster
 -------------------------------------------------------------
@@ -78,8 +78,8 @@ eksctl delete cluster --name cluster1 --region ap-southeast-1
 ----------------------------------------------------------------------------------------------------------------------------------------------
 KIND_CLUSTER
 ------------
-(kind kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
-kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.)
+Kind kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
+kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.
 
 install docker first:
 ---------------------
@@ -94,6 +94,16 @@ mkdir k8s-install
 ````
 ````
 vim install_kind.sh
+````
+````
+#!/bin/bash
+
+# For AMD64 / x86_64
+
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+chmod +x ./kind
+sudo cp ./kind /usr/local/bin/kind
+rm -rf kind
 ````
 ````
 chmod +x install_kind.sh
@@ -175,9 +185,7 @@ echo "kubectl installation complete."
 ````
 --------------------------------------------
 
-
-
-
+````
 kubectl get nodes
+```
 
-'''
