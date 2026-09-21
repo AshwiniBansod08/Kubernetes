@@ -35,8 +35,11 @@ sudo mv /tmp/eksctl /usr/local/bin
 sudo chmod +x /usr/local/bin/eksctl
 
 aws --version
+
 kubectl version --client
+
 eksctl version
+
 ----------------------------------------------------------------------------------------------------------------------
 
 
