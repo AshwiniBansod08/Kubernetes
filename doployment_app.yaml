@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: my-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-pod
+  template:
+    metadata:
+      labels:
+        app: my-pod
+    spec:
+      containers:
+      - name: my-container
+        image: ashwini0801/node_img
+        ports:  
+        - containerPort: 3000
