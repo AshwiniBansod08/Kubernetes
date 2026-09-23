@@ -1,0 +1,31 @@
+apiVersion: v1   # API version used for PersistentVolume resource
+kind: PersistentVolume   # Declares this manifest as a PersistentVolume (PV)
+metadata: 
+    name: my-vol   # Name of the PV (unique identifier in the cluster)
+
+spec: 
+  capacity: 
+    storage: 5Gi   # The size of the PV (5 Gigabytes)
+
+  volumeMode: Filesystem   # Specifies that the volume will be mounted as a filesystem (not raw block)
+
+  accessModes:
+      - ReadWriteOnce   # Only one node can mount this volume for read/write at a time
+
+  persistentVolumeReclaimPolicy: Retain   # What happens when the PVC is deleted:
+                                          # Retain → Keep the data
+                                          # Delete → Remove the PV and data
+                                          # Recycle → Wipe and make PV available again (deprecated)
+
+  storageClassName: manual   # StorageClass name associated with this PV (used for dynamic provisioning)
+
+  local:
+    path: /mnt/data   # Path on the node’s local filesystem where data will be stored
+
+  nodeAffinity:   # Ensures the PV is only usable on specific nodes
+    required:
+      nodeSelectorTerms: 
+        - matchExpressions:
+            - key: kubernetes.io/hostname   # Node label key used for selection
+              operator: In                  # Operator meaning "must be in this list"
+              values: ["controlplane"]      # Only the node with hostname "controlplane" can use this PV
