@@ -1,0 +1,15 @@
+
+{
+  "name": "node-mongodb-k8s",
+  "version": "1.0.0",
+  "description": "2-tier Node.js and MongoDB application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}
+
