@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://mongodb:27017/yourDatabaseName')
+mongoose.connect('mongodb://mongo:27017/yourDatabaseName')
     .then(() => {
         console.log('MongoDB connected successfully');
     })
