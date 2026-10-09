@@ -141,7 +141,7 @@ nodes:
 Create a 3-node Kubernetes cluster using Kind:
 ---------------------------------------------
 ````
-kind create cluster --config=config.yml --name=mycluster
+kind create cluster --config=config.yaml --name=mycluster
 ````
 
 Create install_kubectl.sh
