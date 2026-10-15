@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node MongoDB User App</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f5f9;
+      margin: 0;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px #0001;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #263238;
+    }
+
+    input, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #16834a;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    li {
+      background: #edf7f0;
+      margin: 8px 0;
+      padding: 12px;
+      border-radius: 6px;
+    }
+
+    #message {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>User Registration</h1>
+
+    <form id="userForm">
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter your name"
+        required
+      >
+
+      <input
+        type="number"
+        id="age"
+        placeholder="Enter your age"
+        min="0"
+        required
+      >
+
+      <button type="submit">Add User</button>
+    </form>
+
+    <p id="message"></p>
+
+    <h2>Saved Users</h2>
+    <ul id="userList"></ul>
+  </div>
+
+  <script>
+    const form = document.getElementById("userForm");
+    const userList = document.getElementById("userList");
+    const message = document.getElementById("message");
+
+    async function loadUsers() {
+      try {
+        const response = await fetch("/users");
+
+        if (!response.ok) {
+          throw new Error("Unable to load users");
+        }
+
+        const users = await response.json();
+        userList.replaceChildren();
+
+        users.forEach(user => {
+          const li = document.createElement("li");
+          li.textContent = `${user.name} - Age: ${user.age}`;
+          userList.appendChild(li);
+        });
+      } catch (error) {
+        message.textContent = error.message;
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const age = document.getElementById("age").value;
+
+      try {
+        const response = await fetch("/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, age })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Unable to add user");
+        }
+
+        message.textContent = "User added successfully!";
+        form.reset();
+        await loadUsers();
+      } catch (error) {
+        message.textContent = error.message;
+      }
+    });
+
+    loadUsers();
+  </script>
+</body>
+</html>
