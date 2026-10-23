@@ -1,0 +1,22 @@
+services:
+  mongo: 
+    image: mongo:7
+    container_name: mongo-cont
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  nodeapp:
+    image: ashwini0801/user_registration:latest
+    container_name: node-cont
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/userdb"
+    depends_on: 
+      - mongo
+
+volumes:
+  mongo-data:
