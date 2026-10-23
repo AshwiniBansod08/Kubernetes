@@ -1,0 +1,13 @@
+services:
+  nodeapp:
+    build: 
+      context: .
+    container_name: node-cont
+    ports:
+      - "3000:3000"
+
+
+# apt install docker-compose 
+# docker compose version 
+# docker compose up -d --build
+# docker compose down
